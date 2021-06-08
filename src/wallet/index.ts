@@ -1,6 +1,8 @@
 import { CreateWallet } from './application/CreateWallet';
 import { GetWallet } from './application/GetWallet';
+import { ListWallets } from './application/ListWallets';
 import { ApplicationReady } from './controllers/ApplicationReady';
+import { Ranking } from './controllers/Ranking';
 import { ShowWallet } from './controllers/ShowWallet';
 import { MemoryWalletRepository } from './infrastructure/MemoryWalletRepository';
 
@@ -12,4 +14,7 @@ const applicationReady = new ApplicationReady(createWallet);
 const getWallet = new GetWallet(walletRepository);
 const viewWallet = new ShowWallet(getWallet);
 
-export { applicationReady, viewWallet };
+const listWallets = new ListWallets(walletRepository);
+const ranking = new Ranking(listWallets);
+
+export { applicationReady, viewWallet, ranking };

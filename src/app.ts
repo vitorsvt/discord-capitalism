@@ -1,6 +1,6 @@
 import Discord from 'discord.js';
 import { config } from 'dotenv';
-import { applicationReady, viewWallet } from './wallet';
+import { applicationReady, ranking, viewWallet } from './wallet';
 
 config();
 
@@ -22,17 +22,40 @@ client.on('message', async (msg) => {
         return;
     }
 
-    if (command === '!carteira') {
-        const embed = new Discord.MessageEmbed({ title: 'Carteira' });
-        try {
-            const wallet = await viewWallet.handle(id);
-            embed.setDescription(`${wallet.coins} :coin:`);
-            embed.setColor('GREEN');
-        } catch {
-            embed.setDescription('Carteira não encontrada...');
-            embed.setColor('RED');
-        }
-        msg.channel.send(embed);
+    const embed = new Discord.MessageEmbed();
+
+    switch (command) {
+        case '!carteira':
+            embed.setTitle('Carteira');
+            try {
+                const wallet = await viewWallet.handle(id);
+                embed.setDescription(`${wallet.coins} :coin:`);
+                embed.setColor('GREEN');
+            } catch {
+                embed.setDescription('Carteira não encontrada...');
+                embed.setColor('RED');
+            }
+            msg.channel.send(embed);
+            break;
+        case '!ranking':
+            embed.setTitle(':moneybag: Ranking :moneybag:');
+            try {
+                const wallets = await ranking.handle();
+                embed.addFields(
+                    wallets.map((wallet) => {
+                        return {
+                            name: client.users.cache.get(wallet.id)?.username,
+                            value: `${wallet.coins} :coin:`
+                        };
+                    })
+                );
+                embed.setColor('GREEN');
+            } catch {
+                embed.setDescription('Erro na realização do ranking...');
+                embed.setColor('RED');
+            }
+            msg.channel.send(embed);
+            break;
     }
 });
 
