@@ -8,7 +8,8 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
     client.guilds.cache.forEach(async (guild) => {
-        const members = await guild.members.fetch();
+        let members = await guild.members.fetch();
+        members = members.filter((member) => !member.user.bot);
         const ids = members.map((member) => member.id);
         await applicationReady.handle(ids);
     });
@@ -26,7 +27,7 @@ client.on('message', async (msg) => {
 
     switch (command) {
         case '!carteira':
-            embed.setTitle('Carteira');
+            embed.setTitle(`Carteira de ${msg.author.username}`);
             try {
                 const wallet = await viewWallet.handle(id);
                 embed.setDescription(`${wallet.coins} :coin:`);
