@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "target": "ES2019",
+        "module": "CommonJS",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictPropertyInitialization": false
+    },
+    "include": ["**/*"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+}

@@ -1,0 +1,20 @@
+{
+    "name": "discord-capitalism",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "Vitor Silvestri <vitorsilvestri1@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/app.ts"
+    },
+    "devDependencies": {
+        "@types/node": "^15.12.2",
+        "eslint": "^7.28.0",
+        "prettier": "^2.3.1",
+        "ts-node-dev": "^1.1.6",
+        "typescript": "^4.3.2"
+    },
+    "dependencies": {
+        "dotenv": "^10.0.0"
+    }
+}
