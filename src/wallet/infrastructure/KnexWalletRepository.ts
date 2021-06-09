@@ -33,7 +33,7 @@ export class KnexWalletRepository implements WalletRepository {
     }
 
     async update(wallet: Wallet) {
-        await this.db.where({ discord_id: wallet.id }).update({
+        await this.db('wallets').where({ discord_id: wallet.id }).update({
             coins: wallet.coins
         });
     }
